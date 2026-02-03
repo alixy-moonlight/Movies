@@ -1,175 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse | Prime & Netflix Hub</title>
-    <style>
-        :root {
-            --primary: #e50914; /* Netflix Red */
-            --secondary: #00a8e1; /* Prime Blue */
-            --bg: #0f171e;
-            --card-bg: #1a242f;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreamVerse | Prime & Netflix Hub</title>
+<style>
+:root {
+    --primary: #e50914; /* Netflix Red */
+    --secondary: #00a8e1; /* Prime Blue */
+    --bg: #0f171e;
+    --card-bg: #1a242f;
+}
 
-        body {
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-        }
+body {
+    background-color: var(--bg);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
 
-        /* --- Header & Search Bar --- */
-        header {
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+/* Header & Search Bar */
+header {
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        .search-container {
-            position: relative;
-            perspective: 1000px; /* For 3D Effect */
-        }
+#movieSearch {
+    padding: 10px 20px;
+    width: 300px;
+    border-radius: 25px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+#movieSearch:focus {
+    outline: none;
+    transform: rotateX(10deg);
+    box-shadow: 0 10px 20px rgba(0, 168, 225, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+}
 
-        #movieSearch {
-            padding: 10px 20px;
-            width: 300px;
-            border-radius: 25px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: transform 0.4s, box-shadow 0.4s;
-            transform-style: preserve-3d;
-        }
+/* Movie Grid */
+.container {
+    padding: 40px 5%;
+}
+.category-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary);
+    padding-left: 15px;
+}
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+}
 
-        #movieSearch:focus {
-            outline: none;
-            transform: rotateX(10deg);
-            box-shadow: 0 10px 20px rgba(0, 168, 225, 0.3);
-            background: rgba(255, 255, 255, 0.2);
-        }
+/* Movie Cards 3D */
+.movie-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+.movie-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+.movie-card:hover {
+    transform: rotateY(15deg) rotateX(10deg) scale(1.05);
+    box-shadow: -20px 20px 50px rgba(0,0,0,0.5);
+}
+.movie-info {
+    padding: 15px;
+    background: linear-gradient(transparent, black);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transform: translateZ(20px);
+}
+.platform-tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.netflix { background: var(--primary); }
+.prime { background: var(--secondary); }
 
-        /* --- Movie Grid --- */
-        .container {
-            padding: 40px 5%;
-        }
-
-        .category-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
-        }
-
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 30px;
-            perspective: 1000px;
-        }
-
-        /* --- 3D Movie Cards --- */
-        .movie-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .movie-card img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .movie-card:hover {
-            transform: rotateY(15deg) rotateX(10deg) scale(1.05);
-            box-shadow: -20px 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .movie-info {
-            padding: 15px;
-            background: linear-gradient(transparent, black);
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            transform: translateZ(20px); /* Pops the text out */
-        }
-
-        .platform-tag {
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 3px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .netflix { background: var(--primary); }
-        .prime { background: var(--secondary); }
-
-    </style>
+@media screen and (max-width: 600px) {
+    .movie-card img { height: 180px; }
+}
+</style>
 </head>
 <body>
 
 <header>
-    <h1 style="color: var(--primary)">STREAM<span style="color: var(--secondary)">VERSE</span></h1>
-    <div class="search-container">
-        <input type="text" id="movieSearch" placeholder="Search Netflix or Prime shows..." onkeyup="filterMovies()">
-    </div>
+<h1 style="color: var(--primary)">STREAM<span style="color: var(--secondary)">VERSE</span></h1>
+<input type="text" id="movieSearch" placeholder="Search Netflix or Prime shows..." onkeyup="filterMovies()">
 </header>
 
 <div class="container">
-    <h2 class="category-title">Trending Now</h2>
-    <div class="movie-grid" id="movieGrid">
-        
-        <!-- Netflix Example -->
-        <div class="movie-card" data-title="Stranger Things">
-            <img src="https://image.tmdb.org" alt="Stranger Things">
-            <div class="movie-info">
-                <span class="platform-tag netflix">Netflix</span>
-                <h3>Stranger Things</h3>
-            </div>
-        </div>
 
-        <!-- Prime Example -->
-        <div class="movie-card" data-title="The Boys">
-            <img src="https://image.tmdb.org" alt="The Boys">
-            <div class="movie-info">
-                <span class="platform-tag prime">Prime Video</span>
-                <h3>The Boys</h3>
-            </div>
-        </div>
+<h2 class="category-title">Trending Now</h2>
+<div class="movie-grid" id="movieGrid">
 
-        <!-- Add more cards here following the same structure -->
-
+<!-- Netflix Example -->
+<div class="movie-card" data-title="Stranger Things">
+    <img src="https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg" alt="Stranger Things">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Stranger Things</h3>
     </div>
 </div>
 
-<script>
-    function filterMovies() {
-        let input = document.getElementById('movieSearch').value.toLowerCase();
-        let cards = document.getElementsByClassName('movie-card');
+<!-- Prime Example -->
+<div class="movie-card" data-title="The Boys">
+    <img src="https://m.media-amazon.com/images/I/81Qp4ZXH52L._AC_SY679_.jpg" alt="The Boys">
+    <div class="movie-info">
+        <span class="platform-tag prime">Prime Video</span>
+        <h3>The Boys</h3>
+    </div>
+</div>
 
-        for (let i = 0; i < cards.length; i++) {
-            let title = cards[i].getAttribute('data-title').toLowerCase();
-            if (title.includes(input)) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
-            }
-        }
+<!-- Heathers -->
+<div class="movie-card" data-title="Heathers">
+    <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Heathers_film_poster.jpg" alt="Heathers">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Heathers</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 1 -->
+<div class="movie-card" data-title="JoJo Phantom Blood">
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/JoJo%27s_Bizarre_Adventure_-_Phantom_Blood.jpg" alt="Phantom Blood">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Phantom Blood</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 2 -->
+<div class="movie-card" data-title="JoJo Battle Tendency">
+    <img src="https://upload.wikimedia.org/wikipedia/en/2/24/JoJo_Battle_Tendency.jpg" alt="Battle Tendency">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Battle Tendency</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 3 -->
+<div class="movie-card" data-title="JoJo Stardust Crusaders">
+    <img src="https://upload.wikimedia.org/wikipedia/en/7/77/Stardust_Crusaders_cover.jpg" alt="Stardust Crusaders">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Stardust Crusaders</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 4 -->
+<div class="movie-card" data-title="JoJo Diamond is Unbreakable">
+    <img src="https://upload.wikimedia.org/wikipedia/en/3/33/JoJo_Diamond_is_Unbreakable_cover.jpg" alt="Diamond is Unbreakable">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Diamond is Unbreakable</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 5 -->
+<div class="movie-card" data-title="JoJo Golden Wind">
+    <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/JoJo_Golden_Wind_Key_Visual.jpg" alt="Golden Wind">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Golden Wind</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 6 -->
+<div class="movie-card" data-title="JoJo Stone Ocean">
+    <img src="https://upload.wikimedia.org/wikipedia/en/8/8c/JoJo_Stone_Ocean_Key_Visual.jpg" alt="Stone Ocean">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Stone Ocean</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 7 -->
+<div class="movie-card" data-title="JoJo Steel Ball Run">
+    <img src="https://upload.wikimedia.org/wikipedia/en/9/99/JoJo_Steel_Ball_Run_Key_Visual.jpg" alt="Steel Ball Run">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Steel Ball Run</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 8 -->
+<div class="movie-card" data-title="JoJo Jojolion">
+    <img src="https://upload.wikimedia.org/wikipedia/en/d/d7/JoJo_Jojolion_Key_Visual.jpg" alt="Jojolion">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>Jojolion</h3>
+    </div>
+</div>
+
+<!-- JoJo Part 9 -->
+<div class="movie-card" data-title="JoJo Part 9">
+    <img src="https://upload.wikimedia.org/wikipedia/en/e/ef/JoJo_Some_Latest_Key_Visual.jpg" alt="JoJo Part 9">
+    <div class="movie-info">
+        <span class="platform-tag netflix">Netflix</span>
+        <h3>JoJo Part 9</h3>
+    </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function filterMovies() {
+    let input = document.getElementById('movieSearch').value.toLowerCase();
+    let cards = document.getElementsByClassName('movie-card');
+    for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getAttribute('data-title').toLowerCase();
+        cards[i].style.display = title.includes(input) ? "" : "none";
     }
+}
 </script>
 
 </body>
 </html>
-
