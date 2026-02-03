@@ -3,56 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HybridStream: Netflix x Prime</title>
+    <title>StreamVerse | Prime & Netflix Hub</title>
     <style>
-        :root { --netflix-red: #e50914; --prime-blue: #00a8e1; --bg: #050505; }
-        body { background: var(--bg); color: white; font-family: 'Helvetica Neue', Arial; margin: 0; overflow-x: hidden; }
-        .nav { display: flex; align-items: center; padding: 20px 4%; background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); position: fixed; width: 100%; z-index: 100; }
-        .logo { color: var(--netflix-red); font-size: 1.8rem; font-weight: bold; letter-spacing: 1px; }
-        .hero { height: 70vh; background: linear-gradient(to right, var(--bg) 20%, transparent), url('https://image.tmdb.org') center/cover; display: flex; align-items: center; padding: 0 4%; }
-        .hero-content h1 { font-size: 3.5rem; margin: 0; }
-        .row-title { padding-left: 4%; margin-top: 30px; font-size: 1.4rem; color: #e5e5e5; }
-        .movie-row { display: flex; overflow-x: auto; gap: 10px; padding: 10px 4% 40px; scrollbar-width: none; }
-        .movie-card { min-width: 280px; height: 158px; background: #222; border-radius: 4px; overflow: hidden; transition: transform 0.3s; position: relative; cursor: pointer; }
-        .movie-card:hover { transform: scale(1.1); z-index: 10; border: 2px solid white; }
-        iframe { width: 100%; height: 100%; border: none; }
-        .jojo-grid { background: #111; border: 1px solid #333; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; text-align: center; padding: 10px; }
+        :root {
+            --primary: #e50914; /* Netflix Red */
+            --secondary: #00a8e1; /* Prime Blue */
+            --bg: #0f171e;
+            --card-bg: #1a242f;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- Header & Search Bar --- */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .search-container {
+            position: relative;
+            perspective: 1000px; /* For 3D Effect */
+        }
+
+        #movieSearch {
+            padding: 10px 20px;
+            width: 300px;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: transform 0.4s, box-shadow 0.4s;
+            transform-style: preserve-3d;
+        }
+
+        #movieSearch:focus {
+            outline: none;
+            transform: rotateX(10deg);
+            box-shadow: 0 10px 20px rgba(0, 168, 225, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Movie Grid --- */
+        .container {
+            padding: 40px 5%;
+        }
+
+        .category-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+
+        /* --- 3D Movie Cards --- */
+        .movie-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .movie-card:hover {
+            transform: rotateY(15deg) rotateX(10deg) scale(1.05);
+            box-shadow: -20px 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .movie-info {
+            padding: 15px;
+            background: linear-gradient(transparent, black);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            transform: translateZ(20px); /* Pops the text out */
+        }
+
+        .platform-tag {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .netflix { background: var(--primary); }
+        .prime { background: var(--secondary); }
+
     </style>
 </head>
 <body>
-    <nav class="nav"><div class="logo">STREAM<span>FLIX</span></div></nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Spider-Man: No Way Home</h1>
-            <p style="max-width: 500px;">Multiverse villains collide in the ultimate Spider-Man showdown.</p>
-            <button style="background: white; padding: 10px 25px; border: none; font-weight: bold; cursor: pointer;">▶ Play Trailer</button>
+<header>
+    <h1 style="color: var(--primary)">STREAM<span style="color: var(--secondary)">VERSE</span></h1>
+    <div class="search-container">
+        <input type="text" id="movieSearch" placeholder="Search Netflix or Prime shows..." onkeyup="filterMovies()">
+    </div>
+</header>
+
+<div class="container">
+    <h2 class="category-title">Trending Now</h2>
+    <div class="movie-grid" id="movieGrid">
+        
+        <!-- Netflix Example -->
+        <div class="movie-card" data-title="Stranger Things">
+            <img src="https://image.tmdb.org" alt="Stranger Things">
+            <div class="movie-info">
+                <span class="platform-tag netflix">Netflix</span>
+                <h3>Stranger Things</h3>
+            </div>
         </div>
-    </header>
 
-    <h2 class="row-title">Your Movie Requests</h2>
-    <div class="movie-row">
-        <!-- Parasite -->
-        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
-        <!-- Spider-Man -->
-        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
-        <!-- Minions -->
-        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
-        <!-- Heathers -->
-        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
-    </div>
+        <!-- Prime Example -->
+        <div class="movie-card" data-title="The Boys">
+            <img src="https://image.tmdb.org" alt="The Boys">
+            <div class="movie-info">
+                <span class="platform-tag prime">Prime Video</span>
+                <h3>The Boys</h3>
+            </div>
+        </div>
 
-    <h2 class="row-title">JoJo’s Bizarre Adventure (Parts 1-9)</h2>
-    <div class="movie-row">
-        <div class="movie-card jojo-grid">Part 1: Phantom Blood</div>
-        <div class="movie-card jojo-grid">Part 2: Battle Tendency</div>
-        <div class="movie-card jojo-grid">Part 3: Stardust Crusaders</div>
-        <div class="movie-card jojo-grid">Part 4: Diamond is Unbreakable</div>
-        <div class="movie-card jojo-grid">Part 5: Golden Wind</div>
-        <div class="movie-card jojo-grid">Part 6: Stone Ocean</div>
-        <div class="movie-card jojo-grid">Part 7: Steel Ball Run</div>
-        <div class="movie-card jojo-grid">Part 8: JoJolion</div>
-        <div class="movie-card jojo-grid">Part 9: The JOJOLands</div>
+        <!-- Add more cards here following the same structure -->
+
     </div>
+</div>
+
+<script>
+    function filterMovies() {
+        let input = document.getElementById('movieSearch').value.toLowerCase();
+        let cards = document.getElementsByClassName('movie-card');
+
+        for (let i = 0; i < cards.length; i++) {
+            let title = cards[i].getAttribute('data-title').toLowerCase();
+            if (title.includes(input)) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
+
