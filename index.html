@@ -7,39 +7,139 @@
       font-family: Arial, sans-serif;
       background: #111;
       color: white;
-      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1, h2 {
+      padding-left: 20px;
+    }
+    .row {
+      display: flex;
+      overflow-x: auto;
+      padding: 20px;
+      gap: 10px;
+    }
+    .row::-webkit-scrollbar {
+      height: 8px;
+    }
+    .row::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
     }
     .movie {
-      display: inline-block;
-      margin: 12px;
-      vertical-align: top;
+      min-width: 150px;
+      flex: 0 0 auto;
+      text-align: center;
     }
     .movie img {
       width: 150px;
       height: 220px;
       object-fit: cover;
       border-radius: 10px;
+      transition: transform 0.2s;
     }
+    .movie img:hover {
+      transform: scale(1.05);
+    }
+    a { text-decoration: none; color: white; }
   </style>
 </head>
 
 <body>
   <h1>My Movies Collection</h1>
 
-  <!-- Movies -->
-  <div class="movie">
-    <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Heathers_film_poster.jpg">
-    <h3>Heathers</h3>
-    <p>1989</p>
+  <h2>Popular Movies</h2>
+  <div class="row">
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt0097493/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Heathers_film_poster.jpg" alt="Heathers">
+        <h3>Heathers</h3>
+        <p>1989</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt1375666/" target="_blank">
+        <img src="https://m.media-amazon.com/images/I/51sD0R0pK+L._AC_.jpg" alt="Inception">
+        <h3>Inception</h3>
+        <p>2010</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt0816692/" target="_blank">
+        <img src="https://m.media-amazon.com/images/I/71n58FFZlPL._AC_SL1024_.jpg" alt="Interstellar">
+        <h3>Interstellar</h3>
+        <p>2014</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt0499549/" target="_blank">
+        <img src="https://m.media-amazon.com/images/I/41kTVLeW1CL._AC_.jpg" alt="Avatar">
+        <h3>Avatar</h3>
+        <p>2009</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt4154756/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Infinity_War_poster.jpg" alt="Avengers: Infinity War">
+        <h3>Avengers: Infinity War</h3>
+        <p>2018</p>
+      </a>
+    </div>
   </div>
 
-  <div class="movie">
-    <img src="https://m.media-amazon.com/images/I/51sD0R0pK+L._AC_.jpg">
-    <h3>Inception</h3>
-    <p>2010</p>
-  </div>
+  <h2>JoJo's Bizarre Adventure</h2>
+  <div class="row">
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt1606375/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/JoJo%27s_Bizarre_Adventure_-_Phantom_Blood.jpg" alt="Phantom Blood">
+        <h3>Phantom Blood</h3>
+        <p>2012</p>
+      </a>
+    </div>
 
-  <div class="movie">
-    <img src="https://m.media-amazon.com/images/I/71n58FFZlPL._AC_SL1024_.jpg">
-    <h3>Interstellar</h3>
-    <p>2014
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt1606375/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/24/JoJo_Battle_Tendency.jpg" alt="Battle Tendency">
+        <h3>Battle Tendency</h3>
+        <p>2012</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt2478338/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/7/77/Stardust_Crusaders_cover.jpg" alt="Stardust Crusaders">
+        <h3>Stardust Crusaders</h3>
+        <p>2014</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt5690894/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/33/JoJo_Diamond_is_Unbreakable_cover.jpg" alt="Diamond is Unbreakable">
+        <h3>Diamond is Unbreakable</h3>
+        <p>2016</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt8338512/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/JoJo_Golden_Wind_Key_Visual.jpg" alt="Golden Wind">
+        <h3>Golden Wind</h3>
+        <p>2018</p>
+      </a>
+    </div>
+
+    <div class="movie">
+      <a href="https://www.imdb.com/title/tt11166112/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/8c/JoJo_Stone_Ocean_Key_Visual.jpg" alt="Stone Ocean">
+        <h3>Stone Ocean</h3>
+        <p>2021</p>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
