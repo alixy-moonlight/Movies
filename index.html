@@ -1,229 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Movies Collection</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-    }
-    h1, h2 {
-      padding-left: 20px;
-      margin-top: 24px;
-    }
-    .row {
-      display: flex;
-      gap: 10px;
-      padding: 10px 20px;
-      overflow-x: auto;
-    }
-    .row::-webkit-scrollbar {
-      height: 8px;
-    }
-    .row::-webkit-scrollbar-thumb {
-      background: #555;
-      border-radius: 4px;
-    }
-    .movie {
-      min-width: 150px;
-      flex: 0 0 auto;
-      text-align: center;
-      position: relative;
-    }
-    .movie img {
-      width: 150px;
-      height: 225px;
-      object-fit: cover;
-      border-radius: 8px;
-      transition: transform 0.2s;
-    }
-    .movie img:hover {
-      transform: scale(1.05);
-      filter: brightness(75%);
-    }
-    .overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      font-size: 14px;
-      padding: 4px;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .movie:hover .overlay {
-      opacity: 1;
-    }
-    a { text-decoration: none; color: white; }
-    @media screen and (max-width: 600px) {
-      .movie { min-width: 120px; }
-      .movie img { height: 180px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HybridStream: Netflix x Prime</title>
+    <style>
+        :root { --netflix-red: #e50914; --prime-blue: #00a8e1; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: 'Helvetica Neue', Arial; margin: 0; overflow-x: hidden; }
+        .nav { display: flex; align-items: center; padding: 20px 4%; background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); position: fixed; width: 100%; z-index: 100; }
+        .logo { color: var(--netflix-red); font-size: 1.8rem; font-weight: bold; letter-spacing: 1px; }
+        .hero { height: 70vh; background: linear-gradient(to right, var(--bg) 20%, transparent), url('https://image.tmdb.org') center/cover; display: flex; align-items: center; padding: 0 4%; }
+        .hero-content h1 { font-size: 3.5rem; margin: 0; }
+        .row-title { padding-left: 4%; margin-top: 30px; font-size: 1.4rem; color: #e5e5e5; }
+        .movie-row { display: flex; overflow-x: auto; gap: 10px; padding: 10px 4% 40px; scrollbar-width: none; }
+        .movie-card { min-width: 280px; height: 158px; background: #222; border-radius: 4px; overflow: hidden; transition: transform 0.3s; position: relative; cursor: pointer; }
+        .movie-card:hover { transform: scale(1.1); z-index: 10; border: 2px solid white; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .jojo-grid { background: #111; border: 1px solid #333; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; text-align: center; padding: 10px; }
+    </style>
 </head>
 <body>
+    <nav class="nav"><div class="logo">STREAM<span>FLIX</span></div></nav>
 
-  <h1>My Movies Collection</h1>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Spider-Man: No Way Home</h1>
+            <p style="max-width: 500px;">Multiverse villains collide in the ultimate Spider-Man showdown.</p>
+            <button style="background: white; padding: 10px 25px; border: none; font-weight: bold; cursor: pointer;">▶ Play Trailer</button>
+        </div>
+    </header>
 
-  <!-- Action -->
-  <h2>Action</h2>
-  <div class="row">
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt1375666/" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/51sD0R0pK+L._AC_.jpg" alt="Inception">
-        <div class="overlay">Inception (2010)</div>
-      </a>
+    <h2 class="row-title">Your Movie Requests</h2>
+    <div class="movie-row">
+        <!-- Parasite -->
+        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
+        <!-- Spider-Man -->
+        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
+        <!-- Minions -->
+        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
+        <!-- Heathers -->
+        <div class="movie-card"><iframe src="https://www.youtube.com"></iframe></div>
     </div>
 
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt4154756/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Infinity_War_poster.jpg" alt="Avengers: Infinity War">
-        <div class="overlay">Avengers: Infinity War (2018)</div>
-      </a>
+    <h2 class="row-title">JoJo’s Bizarre Adventure (Parts 1-9)</h2>
+    <div class="movie-row">
+        <div class="movie-card jojo-grid">Part 1: Phantom Blood</div>
+        <div class="movie-card jojo-grid">Part 2: Battle Tendency</div>
+        <div class="movie-card jojo-grid">Part 3: Stardust Crusaders</div>
+        <div class="movie-card jojo-grid">Part 4: Diamond is Unbreakable</div>
+        <div class="movie-card jojo-grid">Part 5: Golden Wind</div>
+        <div class="movie-card jojo-grid">Part 6: Stone Ocean</div>
+        <div class="movie-card jojo-grid">Part 7: Steel Ball Run</div>
+        <div class="movie-card jojo-grid">Part 8: JoJolion</div>
+        <div class="movie-card jojo-grid">Part 9: The JOJOLands</div>
     </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0499549/" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/41kTVLeW1CL._AC_.jpg" alt="Avatar">
-        <div class="overlay">Avatar (2009)</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt7286456/" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg" alt="Joker">
-        <div class="overlay">Joker (2019)</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- Comedy -->
-  <h2>Comedy</h2>
-  <div class="row">
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0097493/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Heathers_film_poster.jpg" alt="Heathers">
-        <div class="overlay">Heathers (1989)</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0088763/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/3/3a/Ghostbusters_%281984%29.jpg" alt="Ghostbusters">
-        <div class="overlay">Ghostbusters (1984)</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0110912/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/8/82/Pulp_Fiction_cover.jpg" alt="Pulp Fiction">
-        <div class="overlay">Pulp Fiction (1994)</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- Anime / JoJo -->
-  <h2>Anime</h2>
-  <div class="row">
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt1606375/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/JoJo%27s_Bizarre_Adventure_-_Phantom_Blood.jpg" alt="Phantom Blood">
-        <div class="overlay">Phantom Blood</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt1606375/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/2/24/JoJo_Battle_Tendency.jpg" alt="Battle Tendency">
-        <div class="overlay">Battle Tendency</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt2478338/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/7/77/Stardust_Crusaders_cover.jpg" alt="Stardust Crusaders">
-        <div class="overlay">Stardust Crusaders</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt5690894/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/3/33/JoJo_Diamond_is_Unbreakable_cover.jpg" alt="Diamond is Unbreakable">
-        <div class="overlay">Diamond is Unbreakable</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt8338512/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/JoJo_Golden_Wind_Key_Visual.jpg" alt="Golden Wind">
-        <div class="overlay">Golden Wind</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt11166112/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/8/8c/JoJo_Stone_Ocean_Key_Visual.jpg" alt="Stone Ocean">
-        <div class="overlay">Stone Ocean</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/search/title/?title=steel+ball+run" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/9/99/JoJo_Steel_Ball_Run_Key_Visual.jpg" alt="Steel Ball Run">
-        <div class="overlay">Steel Ball Run</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/search/title/?title=jojolion" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/d/d7/JoJo_Jojolion_Key_Visual.jpg" alt="Jojolion">
-        <div class="overlay">Jojolion</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/search/title/?title=jojo+part+9" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/e/ef/JoJo_Some_Latest_Key_Visual.jpg" alt="JoJo Part 9">
-        <div class="overlay">JoJo Part 9</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- Classics -->
-  <h2>Classics</h2>
-  <div class="row">
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0110357/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/The_Lion_King_poster.jpg" alt="The Lion King">
-        <div class="overlay">The Lion King (1994)</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0120737/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/The_Lord_of_the_Rings_The_Fellowship_of_the_Ring_.jpg" alt="LOTR: Fellowship">
-        <div class="overlay">LOTR: Fellowship (2001)</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0167261/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/6/66/The_Lord_of_the_Rings_The_Two_Towers.jpg" alt="LOTR: Two Towers">
-        <div class="overlay">LOTR: Two Towers (2002)</div>
-      </a>
-    </div>
-
-    <div class="movie">
-      <a href="https://www.imdb.com/title/tt0167260/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/9/9d/The_Lord_of_the_Rings_The_Return_of_the_King.jpg" alt="LOTR: Return of the King">
-        <div class="overlay">LOTR: Return of the King (2003)</div>
-      </a>
-    </div>
-  </div>
-
 </body>
 </html>
